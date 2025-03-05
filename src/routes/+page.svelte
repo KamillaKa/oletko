@@ -4,7 +4,7 @@
     import "../app.css";
 
     let newExperience = "";
-    let experiences = [];
+    let experiences = /** @type {Array<{ id: number, text: string, count: number }>} */ ([]);
 
     // Load experiences from database
     async function loadExperiences() {
@@ -39,12 +39,15 @@
     }
 
     // Increase count when user has done the same experience
+    /**
+     * @param {number} id
+     */
     async function incrementCount(id) {
     console.log("Updating experience with ID:", id);
 
     const { data, error } = await supabase
         .from("experiences")
-        .update({ count: experiences.find(exp => exp.id === id).count + 1 }) // Increment manually
+        .update({ count: (experiences.find(exp => exp.id === id)?.count ?? 0) + 1 })
         .eq("id", id)
         .select(); // Fetch updated row
 
@@ -53,7 +56,6 @@
         return;
     }
 
-    console.log("Updated experience:", data);
     await loadExperiences(); // Refresh the list after update
 }
 
