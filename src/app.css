@@ -1,1 +1,101 @@
 @import "@picocss/pico";
+
+/* General Styles */
+html {
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+  background-color: #1e1e2e;
+  color: #f8f8f2;
+}
+
+body {
+  margin: 20px;
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+  background: linear-gradient(135deg, #24243e, #302b63, #0f0c29);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Header */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ff79c6;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+input, button {
+  font-size: 1rem;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+}
+
+input {
+  background: #282a36;
+  color: #f8f8f2;
+  border: 2px solid #ff79c6;
+}
+
+input:focus {
+  outline: none;
+  border-color: #bd93f9;
+}
+
+/* Button Styles */
+button {
+  background: #ff79c6;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: #bd93f9;
+}
+
+/* Experience List Styling */
+.experience-list {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.experience-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  flex: 1 1 250px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.experience-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
