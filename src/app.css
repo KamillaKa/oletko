@@ -99,3 +99,42 @@ footer {
   font-size: 0.9rem;
   color: #ccc;
 }
+
+/* Checkmark success message */
+.checkmark {
+  color: #28a745; /* Green color */
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1rem;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Fade out effect */
+.checkmark.fade-out {
+  opacity: 0;
+}
+
+/* Input and button styling */
+.form-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-button {
+  background-color: #ff79c6;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.add-button:hover {
+  background-color: #bd93f9;
+}
+

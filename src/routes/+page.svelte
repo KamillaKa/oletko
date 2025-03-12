@@ -4,7 +4,8 @@
     import "../app.css";
 
     let newExperience = "";
-    let experiences = /** @type {Array<{ id: number, text: string, count: number }>} */ ([]);
+    let experiences = [];
+    let showCheckmark = false; // State for checkmark animation
 
     // Load experiences from database
     async function loadExperiences() {
@@ -23,7 +24,7 @@
 
     // Add new experience
     async function addExperience() {
-        if (!newExperience.trim()) return; // Prevent empty inputs
+        if (!newExperience.trim()) return;
 
         const { error } = await supabase
             .from("experiences")
@@ -34,32 +35,31 @@
             return;
         }
 
+        showCheckmark = true; // Show checkmark animation
         newExperience = ""; // Clear input field
-        await loadExperiences(); // Reload experiences list
+        await loadExperiences(); // Refresh experience list
+
+        // Hide checkmark after 2 seconds
+        setTimeout(() => {
+            showCheckmark = false;
+        }, 2000);
     }
 
     // Increase count when user has done the same experience
-    /**
-     * @param {number} id
-     */
     async function incrementCount(id) {
-    console.log("Updating experience with ID:", id);
+        const { error } = await supabase
+            .from("experiences")
+            .update({ count: experiences.find(exp => exp.id === id).count + 1 })
+            .eq("id", id)
+            .select();
 
-    const { data, error } = await supabase
-        .from("experiences")
-        .update({ count: (experiences.find(exp => exp.id === id)?.count ?? 0) + 1 })
-        .eq("id", id)
-        .select(); // Fetch updated row
+        if (error) {
+            console.error("Error updating count:", error);
+            return;
+        }
 
-    if (error) {
-        console.error("Error updating count:", error);
-        return;
+        await loadExperiences(); // Refresh list after update
     }
-
-    await loadExperiences(); // Refresh the list after update
-}
-
-
 
     onMount(() => {
         loadExperiences();
@@ -70,16 +70,21 @@
     <h1>Miten moni on tehnyt tämän?</h1>
 
     <!-- Add new experience -->
-    <article>
+    <article class="form-container">
         <label for="experience">Kirjoita kokemus</label>
         <input type="text" id="experience" bind:value={newExperience} />
-        <button on:click={addExperience}>Lisää kokemus</button>
+        <button on:click={addExperience} class="add-button">
+            Lisää kokemus
+        </button>
+        {#if showCheckmark}
+            <span class="checkmark">✔ Kokemus lisätty!</span>
+        {/if}
     </article>
 
     <!-- Experience list -->
-    <section>
+    <section class="experience-list">
         {#each experiences as exp}
-            <article>
+            <article class="experience-card">
                 <p>{exp.text} ({exp.count} ihmistä)</p>
                 <button on:click={() => incrementCount(exp.id)}>Minäkin!</button>
             </article>
